@@ -1,9 +1,16 @@
 import { Dimensions, StyleSheet, Text, View, Image, ImageBackground, TouchableOpacity, Linking } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
+import { NewsContext } from "../API/context";
 
 const SingleNews = ({ item, index }) => {
   const windowWidth = Dimensions.get("window").width;
   const windowHeight = Dimensions.get("window").height;
+
+  const { darkTheme } = useContext(NewsContext);
+
+
+
+
   return (
     <View
       style={{
@@ -16,12 +23,12 @@ const SingleNews = ({ item, index }) => {
         source={{ uri: item.urlToImage }}
         style={{ height: "45%", resizeMode: "cover", width: windowWidth }}
       />
-      <View style={{...styles.description, backgroundColor: "#282C35"}}>
-      <Text style={{ ...styles.title, color: "white" }}>{item.title}</Text>
-      <Text style={{ ...styles.content, color: "white" }}>
+      <View style={{...styles.description, backgroundColor: darkTheme ? "#282C35" : "white"}}>
+      <Text style={{ ...styles.title, color: darkTheme ? "white" : "black" }}>{item.title}</Text>
+      <Text style={{ ...styles.content, color: darkTheme ? "white" : "black" }}>
         {item.description}
       </Text>
-      <Text style={{color:"white"}}>
+      <Text style={{color:darkTheme ? "white" : "black" }}>
         Short By:
         <Text> {item.author ?? "Unknown"}</Text>
       </Text>
@@ -52,7 +59,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     paddingBottom: 10,
     color: "white",
-    marginTop: 73,
+    // marginTop: 73,
   },
   content: {
     fontSize: 18,
